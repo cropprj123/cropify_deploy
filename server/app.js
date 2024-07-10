@@ -20,7 +20,7 @@ app.use(express.json());
 //app.use(express.urlencoded({ extended: true }));
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://cropify-server.vercel.app",
+  "https://cropify-one.vercel.app",
 ];
 
 app.use(cookieparser());
