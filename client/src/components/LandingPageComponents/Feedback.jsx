@@ -17,7 +17,7 @@ const Feedback = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get("/api/v1/reviews/randomreviews");
+        const response = await axios.get("api/v1/reviews/randomreviews");
         console.log("Review Response", response.data.data.data);
         setReviews(response.data.data.data);
         setCrop(response.data.data.data.crop.name);
