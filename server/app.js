@@ -26,7 +26,7 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://cropify-one.vercel.app",
     credentials: true,
   })
 );
