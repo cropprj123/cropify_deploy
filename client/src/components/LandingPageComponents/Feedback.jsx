@@ -22,7 +22,7 @@ const Feedback = () => {
         setReviews(response.data.data.data);
         setCrop(response.data.data.data.crop.name);
       } catch (error) {
-        //console.log("Fetching Reviews", error);
+        console.log("Fetching Reviews", error);
         setError(error);
       }
     };
