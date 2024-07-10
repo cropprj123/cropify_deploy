@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://cropify-server.vercel.app",
+        target: "https://cropify-deploy-server.vercel.app",
         changeOrigin: true,
         secure: false,
       },
