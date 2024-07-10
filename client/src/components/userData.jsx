@@ -11,7 +11,7 @@ const useUserData = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://cropify-deploy-server.vercel.app/api/v1/users/user"
+          "https://cropify-one.vercel.app/api/v1/users/user"
         );
         //console.log("User Data info ", response.data);
         setUserData(response.data);
