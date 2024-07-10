@@ -20,18 +20,17 @@ import eslint from "vite-plugin-eslint";
 //     },
 //   },
 // });
-// server: {
-//     proxy: {
-//       "/api": {
-//         target: "https://cropify-deploy-server.vercel.app",
-//         changeOrigin: true,
-//         secure: true,
-//       },
-//     },
-//   },
 export default defineConfig({
   plugins: [react(), eslint()],
-
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://cropify-deploy-server.vercel.app",
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
   resolve: {
     alias: {
       "@emotion/react": "@emotion/react",
