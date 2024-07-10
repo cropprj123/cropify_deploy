@@ -43,6 +43,7 @@ app.use(
     ],
   })
 );
+app.option('*',cors())
 // app.use(
 //   cors({
 //     origin: "https://cropify-server.vercel.app",
