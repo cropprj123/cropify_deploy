@@ -1,4 +1,3 @@
-const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const cookieparser = require("cookie-parser");
@@ -10,43 +9,30 @@ const bookingRouter = require("./routes/bookingRoutes");
 const reviewRouter = require("./routes/reviewRoute");
 const StoreRouter = require("./routes/storeRoutes");
 const addtocartRouter = require("./routes/addtocartRoute");
-const app = express();
 const cors = require("cors");
+const app = express();
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
 app.use(express.json());
-//app.use(express.urlencoded({ extended: true }));
+app.use(cookieparser());
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://cropify-one.vercel.app",
 ];
 
-app.use(cookieparser());
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error("Not allowed by CORS"));
-//       }
-//     },
-//     credentials: true,
-//     optionsSuccessStatus: 200,
-//     allowedHeaders: [
-//       "set-cookie",
-//       "Content-Type",
-//       "Access-Control-Allow-Origin",
-//       "Access-Control-Allow-Credentials",
-//     ],
-//   })
-// );
-
 app.use(
   cors({
-    origin: "https://cropify-one.vercel.app",
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     optionsSuccessStatus: 200,
     allowedHeaders: [
@@ -57,20 +43,10 @@ app.use(
     ],
   })
 );
-app.options('*',cors())
-// app.use(
-//   cors({
-//     origin: "http://localhost:5173",
-//     credentials: true,
-//     allowedHeaders: [
-//       "set-cookie",
-//       "Content-Type",
-//       "Access-Control-Allow-Origin",
-//       "Access-Control-Allow-Credentials",
-//     ],
-//   })
-// );
-// Add a route for the root URL
+
+app.options('*', cors());
+
+// Define your routes
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to Cropify API!");
 });
