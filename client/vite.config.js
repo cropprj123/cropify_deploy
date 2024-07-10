@@ -13,7 +13,7 @@ export default defineConfig({
       "/api": {
         target: "https://cropify-deploy-server.vercel.app",
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },
