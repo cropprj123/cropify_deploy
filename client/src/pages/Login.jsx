@@ -26,7 +26,7 @@ function Login() {
           headers: {
             "Content-Type": "application/json",
           },
-          credentials: "include",
+          withCredentials: true,
         };
 
         const { data } = await axios.post(
@@ -35,35 +35,17 @@ function Login() {
           config
         );
 
-        //console.log(" log in status:", data.status);
-        //console.log("User Data :", data.data.user);
         if (data.status === "success") {
-          //console.log("Login successful");
           setShowSuccessAlert(true);
-          setTimeout(() => setShowSuccessAlert(false), 2000); // Hide success alert after 3 seconds
-
+          setTimeout(() => setShowSuccessAlert(false), 2000);
           setTimeout(() => {
-            navigate("/"); // Redirect to homepage
-            window.location.reload(); // Reload the page
-          }, 2000); // Show success alert for 2 seconds
+            navigate("/");
+            window.location.reload();
+          }, 2000);
         }
       } catch (error) {
         setLoginError(true);
-        setTimeout(() => setLoginError(false), 2000); // Hide error alert after 3 seconds
-        /*  if (
-          error ||
-          error.response ||
-          error.response.data ||
-          error.response.data.message
-        ) {
-          //console.log(" error", error);
-          //console.log(" error.response", error.response);
-          // If the error response contains a message, set it as the backendError state
-          setBackendError(error.response.data.message);
-        } else {
-          // If no specific error message received, set a generic error message
-          setBackendError("An error occurred. Please try again later.");
-        } */
+        setTimeout(() => setLoginError(false), 2000);
         console.error("Error logging in:", error);
       } finally {
         setLoading(false);
@@ -78,7 +60,6 @@ function Login() {
       password: "",
     };
 
-    // Validate email
     if (!email) {
       newErrors.email = "Email is required";
       isValid = false;
@@ -87,7 +68,6 @@ function Login() {
       isValid = false;
     }
 
-    // Validate password
     if (!password) {
       newErrors.password = "Password is required";
       isValid = false;
