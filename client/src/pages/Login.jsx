@@ -27,7 +27,6 @@ function Login() {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-          credentials: "include",
         };
 
         const { data } = await axios.post(
@@ -53,6 +52,42 @@ function Login() {
       }
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     try {
+  //       setLoading(true);
+  //       const config = {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         withCredentials: true,
+  //       };
+
+  //       const { data } = await axios.post(
+  //         "https://cropify-deploy-server.vercel.app/api/v1/users/login",
+  //         { email, password },
+  //         config
+  //       );
+
+  //       if (data.status === "success") {
+  //         setShowSuccessAlert(true);
+  //         setTimeout(() => setShowSuccessAlert(false), 2000);
+  //         setTimeout(() => {
+  //           navigate("/");
+  //           window.location.reload();
+  //         }, 2000);
+  //       }
+  //     } catch (error) {
+  //       setLoginError(true);
+  //       setTimeout(() => setLoginError(false), 2000);
+  //       console.error("Error logging in:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  // };
 
   const validateForm = () => {
     let isValid = true;
