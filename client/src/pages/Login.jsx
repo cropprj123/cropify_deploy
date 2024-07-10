@@ -29,7 +29,7 @@ function Login() {
         };
 
         const { data } = await axios.post(
-          "api/v1/users/login",
+          "https://cropify-deploy-server.vercel.app/api/v1/users/login",
           { email, password },
           config
         );
