@@ -24,71 +24,31 @@ const allowedOrigins = [
   "https://cropify-one.vercel.app",
 ];
 
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error("Not allowed by CORS"));
-//       }
-//     },
-//     credentials: true,
-//     optionsSuccessStatus: 200,
-//     allowedHeaders: [
-//       "Content-Type",
-//       "Access-Control-Allow-Origin",
-//       "Access-Control-Allow-Credentials",
-//     ],
-//   })
-// );
-
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "https://cropify-one.vercel.app");
-//   res.header("Access-Control-Allow-Credentials", true);
-//   next();
-// });
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
+    optionsSuccessStatus: 200,
+    allowedHeaders: [
+      "Content-Type",
+      "Access-Control-Allow-Origin",
+      "Access-Control-Allow-Credentials",
+    ],
   })
 );
-app.set("trust proxy", 1);
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://cropify-one.vercel.app");
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
-// const allowedOrigins = [
-//   "http://localhost:5173",
-//   "https://cropify-one.vercel.app",
-// ];
 
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error("Not allowed by CORS"));
-//       }
-//     },
-//     credentials: true,
-//     optionsSuccessStatus: 200,
-//     allowedHeaders: [
-//       "set-cookie",
-//       "Content-Type",
-//       "Access-Control-Allow-Origin",
-//       "Access-Control-Allow-Credentials",
-//     ],
-//   })
-// );
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "https://cropify-one.vercel.app");
 //   res.header("Access-Control-Allow-Credentials", true);
 //   next();
 // });
+
 app.options("*", cors());
 
 // Define your routes
