@@ -26,14 +26,9 @@ export default defineConfig({
       "/api": {
         target: "https://cropify-deploy-server.vercel.app/",
         changeOrigin: true,
-        secure: false,
+        secure: true,
+        rewrite: (path) => path.replace(/^/api/, ''),
       },
-    },
-  },
-  resolve: {
-    alias: {
-      "@emotion/react": "@emotion/react",
-      "@emotion/styled": "@emotion/styled",
     },
   },
 });
