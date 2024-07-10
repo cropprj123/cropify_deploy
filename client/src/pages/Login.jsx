@@ -29,10 +29,20 @@ function Login() {
           withCredentials: true,
         };
 
+        // const { data } = await axios.post(
+        //   "https://cropify-deploy-server.vercel.app/api/v1/users/login",
+        //   { email, password },
+        //   config
+        // );
         const { data } = await axios.post(
           "https://cropify-deploy-server.vercel.app/api/v1/users/login",
           { email, password },
-          config
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
         );
 
         if (data.status === "success") {
