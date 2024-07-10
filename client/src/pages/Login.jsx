@@ -21,7 +21,6 @@ function Login() {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const inputs = { email, password };
         setLoading(true);
         const config = {
           headers: {
@@ -30,23 +29,11 @@ function Login() {
           withCredentials: true,
         };
 
-        // const { data } = await axios.post(
-        //   "https://cropify-deploy-server.vercel.app/api/v1/users/login",
-        //   { email, password },
-        //   config
-        // );
-        const res = await fetch(
+        const { data } = await axios.post(
           "https://cropify-deploy-server.vercel.app/api/v1/users/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(inputs),
-            credentials: "include", // Ensure credentials are included
-          }
+          { email, password },
+          config
         );
-        const data = await res.json();
 
         // const { data } = await axios.post(
         //   "https://cropify-deploy-server.vercel.app/api/v1/users/login",
