@@ -43,12 +43,6 @@ app.use(
   })
 );
 
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "https://cropify-one.vercel.app");
-//   res.header("Access-Control-Allow-Credentials", true);
-//   next();
-// });
-
 app.options("*", cors());
 
 // Define your routes
