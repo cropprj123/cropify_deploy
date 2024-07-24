@@ -13,8 +13,9 @@ export const cartbook = async () => {
   try {
     // 1) Get checkout session from API
     console.log("in cart book ");
+    //`http://localhost:5173/api/v1/bookings/checkoutforcart`
     const response = await axios.get(
-      `http://localhost:5173/api/v1/bookings/checkoutforcart`
+      `https://cropify-deploy-server.vercel.app/api/v1/bookings/checkoutforcart`
     );
     console.log("in cart res ", response);
     const sessionId = response.data.session.id;

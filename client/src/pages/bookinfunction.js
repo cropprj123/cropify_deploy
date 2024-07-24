@@ -12,8 +12,10 @@ const stripePromise = loadStripe(
 export const crop = async (id) => {
   try {
     // 1) Get checkout session from API
+    //https://cropify-deploy-server.vercel.app/api/v1
+    //`http://localhost:5173/api/v1/bookings/checkout-session/${id}`
     const response = await axios.get(
-      `http://localhost:5173/api/v1/bookings/checkout-session/${id}`
+      `https://cropify-deploy-server.vercel.app/api/v1/bookings/checkout-session/${id}`
     );
     const sessionId = response.data.session.id;
 

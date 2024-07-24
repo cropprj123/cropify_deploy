@@ -11,7 +11,7 @@ export default function UpdateCrop() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5173/api/v1/bookings/bookingstat`
+          `https://cropify-deploy-server.vercel.app/api/v1 /bookings/bookingstat`
         );
         const data = await response.json();
         setBookingStats(data.data.doc);
