@@ -27,6 +27,7 @@ function Login() {
             "Content-Type": "application/json",
           },
           withCredentials: true,
+          credentials: "include",
         };
 
         const { data } = await axios.post(
