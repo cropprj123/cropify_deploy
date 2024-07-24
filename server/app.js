@@ -18,6 +18,10 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json());
 app.use(cookieparser());
+app.use((req, res, next) => {
+  res.header("Allow-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
+  next();
+});
 app.use(
   cors({
     origin: "https://cropify-one.vercel.app",
