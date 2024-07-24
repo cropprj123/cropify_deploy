@@ -30,7 +30,7 @@ function Login() {
         };
 
         const { data } = await axios.post(
-          "/api/v1/users/login",
+          "https://cropify-deploy.onrender.com/api/v1/users/login",
           { email, password },
           config
         );
