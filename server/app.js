@@ -18,24 +18,40 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json());
 app.use(cookieparser());
-app.use((req, res, next) => {
-  res.header("Allow-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
-  next();
-});
+const allowedOrigins = ["https://cropify-one.vercel.app"];
+
 app.use(
   cors({
-    origin: "https://cropify-one.vercel.app",
+    origin: allowedOrigins,
     credentials: true,
-    origin: true,
-    optionsSuccessStatus: 200,
-    allowedHeaders: [
-      "set-cookie",
-      "Content-Type",
-      "Access-Control-Allow-Origin",
-      "Access-Control-Allow-Credentials",
-    ],
   })
 );
+app.set("trust proxy", 1);
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://cropify-one.vercel.app");
+  res.header("Access-Control-Allow-Credentials", true);
+
+  next();
+});
+
+// app.use((req, res, next) => {
+//   res.header("Allow-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
+//   next();
+// });
+// app.use(
+//   cors({
+//     origin: "https://cropify-one.vercel.app",
+//     credentials: true,
+//     origin: true,
+//     optionsSuccessStatus: 200,
+//     allowedHeaders: [
+//       "set-cookie",
+//       "Content-Type",
+//       "Access-Control-Allow-Origin",
+//       "Access-Control-Allow-Credentials",
+//     ],
+//   })
+// );
 app.use("/api/v1/crops", cropRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/email", emailRouter);
