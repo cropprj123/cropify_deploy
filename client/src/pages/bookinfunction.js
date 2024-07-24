@@ -17,6 +17,7 @@ export const crop = async (id) => {
     const response = await axios.get(
       `https://cropify-deploy-server.vercel.app/api/v1/bookings/checkout-session/${id}`
     );
+    //real hai kya
     const sessionId = response.data.session.id;
 
     // 2) Create checkout form + change credit card
