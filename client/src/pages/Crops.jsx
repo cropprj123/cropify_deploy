@@ -102,7 +102,7 @@ function Crops({ cart, setCart }) {
       try {
         //https://cropify-deploy-server.vercel.app/api/v1
         await axios.get(
-          `https://cropify-deploy-server.vercel.app/api/v1 /bookings/booking`,
+          `https://cropify-deploy-server.vercel.app/api/v1/bookings/booking`,
           {
             params: { crop, user, price },
           }
