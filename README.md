@@ -1,2 +1,2 @@
 # cropify_deploy
-cropify depolomynent
+cropify depolomynents
