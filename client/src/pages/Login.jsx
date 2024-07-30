@@ -24,7 +24,7 @@ function Login() {
         setLoading(true);
 
         const res = await fetch(
-          "https://final-deploy-d3zh.onrender.com/api/v1/users/login",
+          "https://cropify-deploy.onrender.com/api/v1/users/login",
           {
             method: "POST",
             headers: {

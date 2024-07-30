@@ -26,7 +26,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "https://final-deploy-d3zh.onrender.com",
+        target: "https://cropify-deploy.onrender.com",
         changeOrigin: true,
         secure: true,
       },
