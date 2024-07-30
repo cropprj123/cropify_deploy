@@ -23,9 +23,10 @@ import eslint from "vite-plugin-eslint";
 export default defineConfig({
   plugins: [react(), eslint()],
   server: {
+    port: 3000,
     proxy: {
       "/api": {
-        target: "https://cropify-deploy.onrender.com",
+        target: "https://final-deploy-d3zh.onrender.com",
         changeOrigin: true,
         secure: true,
       },
