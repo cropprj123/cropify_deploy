@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieparser());
 
 const allowedOrigins = [
-  "https://cropify-one.vercel.app",
+  "https://cropify-deploy.vercel.app",
   "http://localhost:5173",
 ];
 
@@ -35,7 +35,10 @@ app.use(
 app.set("trust proxy", 1);
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://cropify-one.vercel.app"); // Replace with your allowed origins
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://cropify-deploy.vercel.app"
+  ); // Replace with your allowed origins
   res.header("Access-Control-Allow-Credentials", true);
   next();
 });
