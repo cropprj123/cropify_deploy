@@ -22,20 +22,33 @@ function Login() {
     if (validateForm()) {
       try {
         setLoading(true);
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-          credentials: "include",
-        };
+        // const config = {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   withCredentials: true,
+        //   credentials: "include",
+        // };
 
-        const { data } = await axios.post(
-          "/api/v1/users/login",
-          { email, password },
-          config
+        // const { data } = await axios.post(
+        //   "/api/v1/users/login",
+        //   { email, password },
+        //   config
+        // );
+        const res = await fetch(
+          "https://final-deploy-d3zh.onrender.com/api/v1/users/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(inputs),
+            credentials: "include",
+          }
         );
 
+        const data = await res.json();
+        console.log("data login", data);
         // const { data } = await axios.post(
         //   "https://cropify-deploy-server.vercel.app/api/v1/users/login",
         //   { email, password },
