@@ -115,7 +115,7 @@ function App() {
             <Route path="/profile" element={<NewAdminLayout />}>
               <Route index element={<Profile userData={userData} />} />
               <Route path="myorders" element={<MyOrders />} />
-              {userData.user.role === "admin" && (
+              {userData?.user.role === "admin" && (
                 <>
                   <Route path="createproduct" element={<CreateProduct />} />
                   <Route path="createstore" element={<CreateStore />} />
