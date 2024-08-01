@@ -43,8 +43,8 @@ import BuySuccess from "./components/BuySuccess";
 import { useRecoilValue } from "recoil";
 import userAtom from "./atoms/userAtom";
 function App() {
-  const { userData } = useUserData();
-  // const userData = useRecoilValue(userAtom);
+  // const { userData } = useUserData();
+  const userData = useRecoilValue(userAtom);
   const [isLoading, setIsloading] = useState(true);
 
   useEffect(() => {
