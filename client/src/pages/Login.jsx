@@ -22,7 +22,7 @@ function Login() {
       try {
         setLoading(true);
 
-        const res = await fetch("api/v1/users/login", {
+        const res = await fetch("https://cropify-deploy.onrender.com/api/v1/users/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
