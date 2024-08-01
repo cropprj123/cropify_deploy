@@ -6,11 +6,13 @@ import Badge from "@mui/joy/Badge";
 import Box from "@mui/joy/Box";
 
 import Typography from "@mui/joy/Typography";
+import { useRecoilValue } from "recoil";
+import userAtom from "../../atoms/userAtom";
 
 function Navbar({ userData, cart }) {
   // //console.log("cart in nav", cart);
   const location = useLocation();
-
+  const userData = useRecoilValue(userAtom);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleMobileMenuToggle = () => {
