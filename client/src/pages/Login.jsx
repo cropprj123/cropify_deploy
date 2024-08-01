@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiLoading from "../components/ApiLoading";
@@ -23,35 +22,38 @@ function Login() {
       try {
         setLoading(true);
 
-        const res = await fetch(
-          "https://cropify-deploy.onrender.com/api/v1/users/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-            credentials: "include",
-          }
-        );
+        const res = await fetch("api/v1/users/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+          credentials: "include", // Ensure credentials are included
+        });
 
         const data = await res.json();
-        console.log("data login", data);
 
         if (data.status === "success") {
           setShowSuccessAlert(true);
-          setTimeout(() => setShowSuccessAlert(false), 2000);
+          setTimeout(() => setShowSuccessAlert(false), 2000); // Hide success alert after 2 seconds
+
           setTimeout(() => {
-            navigate("/");
-            window.location.reload();
-          }, 2000);
+            navigate("/"); // Redirect to homepage
+            window.location.reload(); // Reload the page
+          }, 2000); // Show success alert for 2 seconds
         } else {
-          throw new Error(data.message || "Login failed");
+          setLoginError(true);
+          setBackendError(
+            data.message || "An error occurred. Please try again later."
+          );
+          setTimeout(() => setLoginError(false), 2000); // Hide error alert after 2 seconds
         }
       } catch (error) {
         setLoginError(true);
-        setTimeout(() => setLoginError(false), 2000);
-        console.error("Error logging in:", error);
+        setBackendError(
+          error.message || "An error occurred. Please try again later."
+        );
+        setTimeout(() => setLoginError(false), 2000); // Hide error alert after 2 seconds
       } finally {
         setLoading(false);
       }
@@ -65,6 +67,7 @@ function Login() {
       password: "",
     };
 
+    // Validate email
     if (!email) {
       newErrors.email = "Email is required";
       isValid = false;
@@ -73,6 +76,7 @@ function Login() {
       isValid = false;
     }
 
+    // Validate password
     if (!password) {
       newErrors.password = "Password is required";
       isValid = false;
@@ -124,7 +128,7 @@ function Login() {
           <div className="text-red-500 text-xs mt-1">{errors.password}</div>
         </div>
         <div className="m-2 undeline text-blue-400">
-          <Link to="/forgetPassword " className="underline">
+          <Link to="/forgetPassword" className="underline">
             Forget Password?
           </Link>
         </div>
@@ -151,11 +155,11 @@ function Login() {
           />
         )}
         {showSuccessAlert && (
-          <SnackBar isOpen={true} message="Login successfull!" type="success" />
+          <SnackBar isOpen={true} message="Login successful!" type="success" />
         )}
       </form>
       <div className="mt-3 ml-2 ">
-        <span>Dont Have an Account ?</span>
+        <span>Don't have an account?</span>
         <Link to="/signup" className="ml-5 underline ">
           Signup
         </Link>
