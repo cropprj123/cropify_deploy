@@ -38,8 +38,9 @@ function Login() {
         );
 
         const data = await res.json();
-        localStorage.setItem("user-threads", JSON.stringify(data));
-        setUser(data);
+
+        localStorage.setItem("user-threads", JSON.stringify(data.data.user));
+        setUser(data.data.user);
 
         if (data.status === "success") {
           setShowSuccessAlert(true);
