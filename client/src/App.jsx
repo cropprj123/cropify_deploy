@@ -80,7 +80,7 @@ function App() {
             element={<Cart cart={cart} setCart={setCart} />}
           />
 
-          {userData?.status === "success" ? (
+          {userData && userData?.status === "success" ? (
             <Route path="/logout" element={<Logout />} />
           ) : (
             <>
@@ -98,7 +98,7 @@ function App() {
             </>
           )}
 
-          {userData?.status === "success" && (
+          {userData && userData?.status === "success" && (
             <Route path="/prediction" element={<PredictionLayout />}>
               <Route path="crop" element={<CropPrediction />} />
               <Route path="advice" element={<AdvicePrediction />} />
@@ -111,11 +111,11 @@ function App() {
             </Route>
           )}
 
-          {userData?.status === "success" && (
+          {userData && userData?.status === "success" && (
             <Route path="/profile" element={<NewAdminLayout />}>
               <Route index element={<Profile userData={userData} />} />
               <Route path="myorders" element={<MyOrders />} />
-              {userData?.user?.role === "admin" && (
+              {userData && userData?.user?.role === "admin" && (
                 <>
                   <Route path="createproduct" element={<CreateProduct />} />
                   <Route path="createstore" element={<CreateStore />} />
