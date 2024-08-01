@@ -38,7 +38,7 @@ function Login() {
         );
 
         const data = await res.json();
-
+        console.log("data", data.data);
         localStorage.setItem("user-threads", JSON.stringify(data.data.user));
         setUser(data.data.user);
 
