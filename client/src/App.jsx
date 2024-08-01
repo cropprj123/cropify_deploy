@@ -41,7 +41,7 @@ import NewAdminLayout from "./components/Layouts/NewAdminLayout";
 import ResetPasswordForm from "./components/Email/ResetPasswordForm";
 import BuySuccess from "./components/BuySuccess";
 import { useRecoilValue } from "recoil";
-
+import userAtom from "./atoms/userAtom";
 function App() {
   // const { userData } = useUserData();
   const userData = useRecoilValue(userAtom);

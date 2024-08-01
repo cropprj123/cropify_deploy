@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ApiLoading from "../components/ApiLoading";
 import SnackBar from "../components/SnackBar";
 import { useSetRecoilState } from "recoil";
+import userAtom from "../atoms/userAtom";
 
 function Login() {
   const [email, setEmail] = useState("");
