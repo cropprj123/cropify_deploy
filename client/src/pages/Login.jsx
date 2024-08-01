@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiLoading from "../components/ApiLoading";
 import SnackBar from "../components/SnackBar";
+import { useSetRecoilState } from "recoil";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -15,6 +16,7 @@ function Login() {
   const [loginError, setLoginError] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const navigate = useNavigate();
+  const setUser = useSetRecoilState(userAtom);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,16 +24,21 @@ function Login() {
       try {
         setLoading(true);
 
-        const res = await fetch("https://cropify-deploy.onrender.com/api/v1/users/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-          credentials: "include", // Ensure credentials are included
-        });
+        const res = await fetch(
+          "https://cropify-deploy.onrender.com/api/v1/users/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+            credentials: "include", // Ensure credentials are included
+          }
+        );
 
         const data = await res.json();
+        localStorage.setItem("user-threads", JSON.stringify(data));
+        setUser(data);
 
         if (data.status === "success") {
           setShowSuccessAlert(true);

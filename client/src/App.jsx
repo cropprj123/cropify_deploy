@@ -40,9 +40,11 @@ import useUserData from "./components/userData";
 import NewAdminLayout from "./components/Layouts/NewAdminLayout";
 import ResetPasswordForm from "./components/Email/ResetPasswordForm";
 import BuySuccess from "./components/BuySuccess";
+import { useRecoilValue } from "recoil";
 
 function App() {
-  const { userData } = useUserData();
+  // const { userData } = useUserData();
+  const userData = useRecoilValue(userAtom);
   const [isLoading, setIsloading] = useState(true);
 
   useEffect(() => {
