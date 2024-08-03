@@ -1,6 +1,7 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import ApiLoading from "../components/ApiLoading";
+import { Link } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import NewProductCard from "../components/NewProductCard";
 import { Typography } from "@mui/joy";
@@ -20,6 +21,7 @@ function Crops({ cart, setCart }) {
       try {
         setIsLoading(true);
         setError("");
+        // const response = await axios.get(`/api/v1/crops/`);
         const res = await fetch(
           "https://cropify-deploy.onrender.com/api/v1/reviews/randomreviews",
           {
@@ -27,21 +29,23 @@ function Crops({ cart, setCart }) {
             headers: {
               "Content-Type": "application/json",
             },
-            credentials: "include",
+            // body: JSON.stringify({ email, password }),
+            credentials: "include", // Ensure credentials are included
           }
         );
-        const apiData = await res.json();
-        console.log("response ", apiData.data.data.data);
+        // console.log("Review Response", response.data.data.data);
+        const apiData = res.json();
+        console.log("response ", apiData.data.data.data); // Handle the response as needed
 
-        if (res.status !== 200) {
-          throw new Error("Something went wrong with fetching crops");
-        }
+        if (apiData.status !== 200)
+          throw new Error("Something went wrong with fetchintg crops");
 
         const cropsData = apiData.data.data.data;
         if (cropsData.length === 0) {
           throw new Error("No crops found");
         }
         setCrops(cropsData);
+
         setIsLoading(false);
       } catch (err) {
         setError(err.message);
@@ -56,6 +60,17 @@ function Crops({ cart, setCart }) {
     setNewArray([...crops]);
   }, [crops]);
 
+  /*  const handleSortChange = (value) => {
+    let sortedArray = [...crops];
+    if (value === "price-high-to-low") {
+      sortedArray.sort((a, b) => b.price - a.price);
+    } else if (value === "price-low-to-high") {
+      sortedArray.sort((a, b) => a.price - b.price);
+    } else if (value === "recently-added") {
+      sortedArray.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+    setNewArray(sortedArray);
+  }; */
   const handleSortAndFilterChange = (sortValue, filterValue) => {
     let sortedAndFilteredArray = [...crops];
     // Sorting
@@ -93,26 +108,24 @@ function Crops({ cart, setCart }) {
     };
 
     // Extract event, user, and price from the URL
-    const { crop, user, price } = getQueryParams(window.location.search);
+    const { crop, user, price } = getQueryParams(location.search);
 
     // Send a request to your backend to store data in the database
     const storeData = async () => {
       try {
-        await fetch(
-          `https://cropify-deploy.onrender.com/api/v1/bookings/booking`,
+        //https://cropify-deploy-server.vercel.app/api/v1
+        await axios.get(
+          `https://cropify-deploy-server.vercel.app/api/v1/bookings/booking`,
           {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
             params: { crop, user, price },
           }
         );
-        // Redirect to the normal URL
-        window.location.href = "https://cropify-deploy.vercel.app/crops";
+        // Redirect to the normal localhost:5173 URL
+        window.location.href = "http://localhost:5173/crops";
+        //console.log("Data stored successfully");
       } catch (error) {
         console.error("Error storing data:", error);
+        // Handle errors
       }
     };
 
@@ -123,40 +136,39 @@ function Crops({ cart, setCart }) {
   const handelSearch = async (e) => {
     e.preventDefault();
     try {
-      setIsLoading(true);
-      const res = await fetch(
-        `https://cropify-deploy.onrender.com/api/v1/crops/search?name=${search}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
-      const apiData = await res.json();
+      setIsLoading(true); // Set loading to true when starting the search
+      // const response = await axios.get(`/api/v1/crops/search?name=${search}`);
+      //console.log("Search response: ", response.data); // Log the response data
 
-      if (res.status !== 200) {
+      if (response.status !== 200)
         throw new Error("Something went wrong with fetching crops");
-      }
 
-      let cropsData = apiData.data.data.crop;
+      let cropsData = response.data.data.crop;
+
+      //console.log("Search results: ", cropsData); // Log the search results
 
       if (cropsData.length === 0) {
         throw new Error("No crops found");
       }
 
+      // Update the crops state with the search results
       setCrops(cropsData);
-      setError("");
+      setError(""); // Reset error state
     } catch (error) {
       setError(error.message);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Set loading to false after search completion
     }
   };
-
   function CustomSelect({ label, options, value, onChange }) {
     return (
+      /*   <select
+        id={label}
+        name={label}
+        value={value}
+        onChange={onChange}
+        className="w-full h-10 border-2 border-gray-500 focus:outline-none focus:border-gray-500 text-gray-500 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider"
+      > */
       <select
         id={label.toLowerCase()}
         name={label.toLowerCase()}
@@ -214,6 +226,7 @@ function Crops({ cart, setCart }) {
               { value: "Seed", label: "Seed" },
               { value: "Crop Protection", label: "Crop Protection" },
             ]}
+            /*  value={filter} */
             onChange={(e) =>
               handleSortAndFilterChange(e.target.value, e.target.value)
             }
@@ -225,13 +238,18 @@ function Crops({ cart, setCart }) {
         <div className="ml-28 flex flex-row space-x-3">
           <Typography level="h4">{selectedFilterLabel}s</Typography>
           {filter !== "all" && (
-            <button
-              onClick={() => handleSortAndFilterChange("recently-added", "all")}
-              className="ml-2 p-1 rounded-full bg-red-500 text-white focus:outline-none"
-            >
-              <ClearIcon className="w-4 h-4" />
-            </button>
+            <>
+              <button
+                onClick={() =>
+                  handleSortAndFilterChange("recently-added", "all")
+                }
+                className="ml-2 p-1  rounded-full bg-red-500 text-white focus:outline-none"
+              >
+                <ClearIcon className="w-4 h-4" />
+              </button>
+            </>
           )}
+          {/* <h1>{selectedFilterLabel}</h1> */}
         </div>
       )}
       {isLoading && <ApiLoading />}
