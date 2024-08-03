@@ -17,10 +17,22 @@ const Feedback = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get("/api/v1/reviews/randomreviews");
-        console.log("Review Response", response.data.data.data);
-        setReviews(response.data.data.data);
-        setCrop(response.data.data.data.crop.name);
+        // const response = await axios.get("/api/v1/reviews/randomreviews");
+        const res = await fetch(
+          "https://cropify-deploy.onrender.com/api/v1/reviews/randomreviews",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            // body: JSON.stringify({ email, password }),
+            credentials: "include", // Ensure credentials are included
+          }
+        );
+        // console.log("Review Response", response.data.data.data);
+        const apiData = res.json();
+        setReviews(apiData.data.data.data);
+        setCrop(apiData.data.data.data.crop.name);
       } catch (error) {
         console.log("Fetching Reviews", error);
         setError(error);

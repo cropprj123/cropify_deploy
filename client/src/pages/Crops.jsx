@@ -21,13 +21,26 @@ function Crops({ cart, setCart }) {
       try {
         setIsLoading(true);
         setError("");
-        const response = await axios.get(`/api/v1/crops/`);
-        console.log("response ", response.data.data.data); // Handle the response as needed
+        // const response = await axios.get(`/api/v1/crops/`);
+        const res = await fetch(
+          "https://cropify-deploy.onrender.com/api/v1/reviews/randomreviews",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            // body: JSON.stringify({ email, password }),
+            credentials: "include", // Ensure credentials are included
+          }
+        );
+        // console.log("Review Response", response.data.data.data);
+        const apiData = res.json();
+        console.log("response ", apiData.data.data.data); // Handle the response as needed
 
         if (response.status !== 200)
           throw new Error("Something went wrong with fetchintg crops");
 
-        const cropsData = response.data.data.data;
+        const cropsData = apiData.data.data.data;
         if (cropsData.length === 0) {
           throw new Error("No crops found");
         }
