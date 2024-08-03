@@ -9,9 +9,10 @@ import Typography from "@mui/joy/Typography";
 import { useRecoilValue } from "recoil";
 import userAtom from "../../atoms/userAtom";
 
-function Navbar({ userData, cart }) {
+function Navbar({ cart }) {
   // //console.log("cart in nav", cart);
   const location = useLocation();
+  const userData = useRecoilValue(userAtom);
   // const userData = useRecoilValue(userAtom);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 

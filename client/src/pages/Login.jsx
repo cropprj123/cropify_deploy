@@ -101,7 +101,7 @@ function Login() {
   return (
     <div className="max-w-md mx-auto mt-8 px-4 py-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold mb-6">Login</h2>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -149,7 +149,7 @@ function Login() {
           </div>
         ) : (
           <button
-            type="submit"
+            onClick={handleSubmit}
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Login
