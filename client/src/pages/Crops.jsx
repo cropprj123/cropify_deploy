@@ -37,7 +37,7 @@ function Crops({ cart, setCart }) {
         const apiData = res.json();
         console.log("response ", apiData.data.data.data); // Handle the response as needed
 
-        if (response.status !== 200)
+        if (apiData.status !== 200)
           throw new Error("Something went wrong with fetchintg crops");
 
         const cropsData = apiData.data.data.data;
@@ -133,33 +133,33 @@ function Crops({ cart, setCart }) {
     storeData();
   }, []);
 
-  const handelSearch = async (e) => {
-    e.preventDefault();
-    try {
-      setIsLoading(true); // Set loading to true when starting the search
-      const response = await axios.get(`/api/v1/crops/search?name=${search}`);
-      //console.log("Search response: ", response.data); // Log the response data
+  // const handelSearch = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     setIsLoading(true); // Set loading to true when starting the search
+  //     const response = await axios.get(`/api/v1/crops/search?name=${search}`);
+  //     //console.log("Search response: ", response.data); // Log the response data
 
-      if (response.status !== 200)
-        throw new Error("Something went wrong with fetching crops");
+  //     if (response.status !== 200)
+  //       throw new Error("Something went wrong with fetching crops");
 
-      let cropsData = response.data.data.crop;
+  //     let cropsData = response.data.data.crop;
 
-      //console.log("Search results: ", cropsData); // Log the search results
+  //     //console.log("Search results: ", cropsData); // Log the search results
 
-      if (cropsData.length === 0) {
-        throw new Error("No crops found");
-      }
+  //     if (cropsData.length === 0) {
+  //       throw new Error("No crops found");
+  //     }
 
-      // Update the crops state with the search results
-      setCrops(cropsData);
-      setError(""); // Reset error state
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false); // Set loading to false after search completion
-    }
-  };
+  //     // Update the crops state with the search results
+  //     setCrops(cropsData);
+  //     setError(""); // Reset error state
+  //   } catch (error) {
+  //     setError(error.message);
+  //   } finally {
+  //     setIsLoading(false); // Set loading to false after search completion
+  //   }
+  // };
   function CustomSelect({ label, options, value, onChange }) {
     return (
       /*   <select
