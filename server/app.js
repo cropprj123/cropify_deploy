@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieparser());
 
 const allowedOrigins = [
-  "https://test-repo-tau-eight.vercel.app",
+  "https://cropify-deploy.vercel.app",
   "http://localhost:5173",
 ];
 //https://test-repo-tau-eight.vercel.app/
