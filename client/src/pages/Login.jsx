@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiLoading from "../components/ApiLoading";
 import SnackBar from "../components/SnackBar";
@@ -38,7 +38,7 @@ function Login() {
         );
 
         const data = await res.json();
-        console.log("data", data.data);
+        console.log("data of user", data.data);
         localStorage.setItem("user-threads", JSON.stringify(data.data.user));
         setUser(data.data.user);
 
@@ -46,10 +46,10 @@ function Login() {
           setShowSuccessAlert(true);
           setTimeout(() => setShowSuccessAlert(false), 2000); // Hide success alert after 2 seconds
 
-          setTimeout(() => {
-            navigate("/"); // Redirect to homepage
-            window.location.reload(); // Reload the page
-          }, 2000); // Show success alert for 2 seconds
+          // setTimeout(() => {
+          //   navigate("/"); // Redirect to homepage
+          //   window.location.reload(); // Reload the page
+          // }, 2000); // Show success alert for 2 seconds
         } else {
           setLoginError(true);
           setBackendError(

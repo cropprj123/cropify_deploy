@@ -76,7 +76,7 @@ function Navbar({ cart }) {
               >
                 Our Stores
               </NavLink>
-              {userData.status === "success" && (
+              {userData && (
                 <NavLink
                   to="/prediction/crop"
                   className={`py-5 px-3 text-gray-700 hover:text-gray-950 ${
@@ -92,7 +92,7 @@ function Navbar({ cart }) {
           {/* Right Nav */}
 
           <div className="hidden md:flex items-center  space-x-3">
-            {userData.status === "success" ? (
+            {userData ? (
               <>
                 <NavLink to="/cart" className="py-2 px-3 ">
                   <svg
@@ -221,7 +221,7 @@ function Navbar({ cart }) {
           >
             Predictions
           </NavLink>
-          {userData.status === "success" ? (
+          {userData ? (
             <>
               <NavLink
                 to="/logout"
