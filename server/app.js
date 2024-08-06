@@ -24,6 +24,7 @@ const allowedOrigins = [
   "https://test-repo-tau-eight.vercel.app",
   "http://localhost:5173",
   "https://test-repo-git-trying-cropifys-projects.vercel.app",
+  "https://pruthvijtry.vercel.app"
 ];
 //https://test-repo-tau-eight.vercel.app/
 app.use((req, res, next) => {
