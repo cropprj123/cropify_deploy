@@ -15,17 +15,25 @@ const signToken = (id) => {
 
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
-  const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-    sameSite: "none",
-    secure: true,
-  };
+  // const cookieOptions = {
+  //   expires: new Date(
+  //     Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+  //   ),
+  //   httpOnly: true,
+  //   sameSite: "none",
+  //   secure: true,
+  // };
   // if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
-  res.cookie("jwt", token, cookieOptions);
+  res.cookie("jwt", token, {
+    httpOnly: true, // Prevents client-side JS from accessing the cookie
+    // secure : true,
+    // sameSite : 'None',
+    secure: process.env.NODE_ENV === "production", // Only use secure cookies in production
+    maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
+    // sameSite : "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Adjusts for cross-site requests
+  });
 
   // Remove sensitive data from output
   user.password = undefined;
