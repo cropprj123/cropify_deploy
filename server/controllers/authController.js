@@ -21,7 +21,7 @@ const createSendToken = (user, statusCode, res) => {
     ),
     httpOnly: true,
     sameSite: "none",
-    secure: true,
+    secure: false,
   };
   if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
@@ -314,10 +314,19 @@ exports.isLoggedIn = async (req, res, next) => {
   next();
 };
 
+// exports.logout = (req, res) => {
+//   res.cookie("jwt", "loggedout", {
+//     expires: new Date(Date.now() + 2 * 1000),
+//     httpOnly: true,
+//   });
+//   res.status(200).json({ status: "success" });
+// };
 exports.logout = (req, res) => {
   res.cookie("jwt", "loggedout", {
     expires: new Date(Date.now() + 2 * 1000),
     httpOnly: true,
+    sameSite: "none", // for cross-site cookie
+    secure: false, // secure in production
   });
   res.status(200).json({ status: "success" });
 };
